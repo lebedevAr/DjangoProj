@@ -16,6 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from CplusDeveloper import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("", views.main),
+    path("demand/", views.demand),
+    path("geography/", views.geography),
+    path("skills/", views.skills),
+    path("last-vacansies/", views.last_vacansies),
 ]
