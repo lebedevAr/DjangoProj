@@ -1,0 +1,6 @@
+# created by virtualenv automatically
+venv/Lib
+skills_by_city
+static
+templates/data
+.idea
