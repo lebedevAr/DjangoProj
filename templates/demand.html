@@ -4,24 +4,46 @@
 
 {% block content %}
 <head>
+    <header class="head">C++ Программист - Аналитика</header>
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        th, td {
-            border: 1px solid black;
-            padding: 5px;
-            text-align: center;
+        table {
+                width: 1200px;
+                background: #000000;
+                color: #2a2a2a;
+                border-spacing: 1px;
+                margin-left: 400px;
+                }
+                td, th {
+                    background: lightskyblue;
+                    padding: 5px;
+                }
+                .head{
+            background-color: lightskyblue;
+            margin-top: -100px;
+            width: 2100px;
+            height: 58px;
+            margin-left: -300px;
+            padding-left: 800px;
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 600;
+            font-size: 1.2em;
+            color: white;
+            position: fixed;
+            padding-top: 15px;
+
         }
     </style>
 </head>
-<body style="font-family: 'Lora', sans-serif; margin-left: 400px" >
-    <h1 style="margin-left: 0px">Аналитика по зарплатам и городам для профессии C++ программист</h1>
-    <img src= "{% static "/graph1.png" %}" alt="graph" style="height: 750px; width: 1150px;">
+<body style="font-family: 'Lora', sans-serif; margin-left: 200px" >
+    <h1 style="margin-left: 500px; margin-top: 100px">Аналитика по зарплатам и городам для профессии C++ программист</h1>
+    <img src= "{% static "/graph1.png" %}" alt="graph" style="height: 750px; width: 1150px; margin-left: 400px">
 
-    <h2 style="margin-left: 450px">Статистика по годам</h2>
-    <table style="width: 1200px">
+    <h2 style="margin-left: 850px">Статистика по годам</h2>
+    <table>
         <thead>
             <tr>
                 <th>Год</th>
@@ -137,6 +159,5 @@
     </table>
 </body>
 </html>
-
 
 {% endblock content %}

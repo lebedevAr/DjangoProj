@@ -5,66 +5,110 @@
     <head>
         <style>
             header{
-            margin-left: 50px;
+            margin-left: 50px; margin-top: 100px; margin-bottom: 200px;
             }
             .container {
             max-width: 960px;
             margin: 50px auto;
             padding: 0 15px;
             background: white;
-            font-size: 16px;
             }
             img{
-                height: 400px;
-                width: 750px;
+                height: 750px;
+                width: 1150px;
             }
             body {
             font-family: 'Montserrat', sans-serif;
-            color: #606060;
-            font-size: 14px;
             }
+            table {
+                width: 65%;
+                background: #000000;
+                color: #2a2a2a;
+                border-spacing: 1px;
+                margin-left: 200px;
+                }
+                td, th {
+                    background: lightskyblue;
+                    padding: 5px;
+                }
 
         </style>
     </head>
     <body>
     <header>
     <div class="container">
-        <p style="color: black">Статистика по географии</p>
+        <h2 style="text-align: center; color: black">Статистика по географии</h2>
         <img src= "{% static "/graph2.png" %}" alt="graph">
         <h2 style="text-align: center; color: black">Статистика по городам</h2>
-            <table style="width: 48%; float: left; color: black">
-                <thead>
-                    <tr>
-                        <th>Город</th>
-                        <th>Уровень зарплат</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for city, value in dynamics5 %}
-                        <tr>
-                            <td>{{ city }}</td>
-                            <td>{{ value }}</td>
-                        </tr>
+        <table>
+        <thead>
+            <tr>
+                <th>Город</th>
+                <th>Уровень зарплат</th>
+                <th>Город</th>
+                <th>Доля вакансий</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    {% for val in val0 %}
+                    <td>{{ val }}</td>
                     {% endfor %}
-                </tbody>
-            </table>
-            <table style="width: 48%; float: right; border-collapse: collapse; color: black">
-                <thead>
-                    <tr>
-                        <th>Город</th>
-                        <th>Доля вакансий</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for city, value in dynamics6 %}
-                        <tr>
-                            <td>{{ city }}</td>
-                            <td>{{ value }}%</td>
-                        </tr>
+                </tr>
+                <tr>
+                    {% for val in val1 %}
+                    <td>{{ val }}</td>
                     {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                </tr>
+                <tr>
+                    {% for val in val2 %}
+                    <td>{{ val }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for val in val3 %}
+                    <td>{{ val }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for val in val4 %}
+                    <td>{{ val }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for val in val5 %}
+                    <td>{{ val }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for val in val6 %}
+                    <td>{{ val }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for val in val7 %}
+                    <td>{{ val }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for val in val8 %}
+                    <td>{{ val }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for val in val9 %}
+                    <td>{{ val }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for val in val10 %}
+                    <td>{{ val }}</td>
+                    {% endfor %}
+                </tr>
+        </tbody>
+
+    </table>
+    </div>
     </header>
     {% endblock content%}
     </body>

@@ -4,7 +4,7 @@ import math
 import billiard as multiprocessing
 import datetime
 import requests
-
+import operator
 import csv
 import threading
 from concurrent.futures import ProcessPoolExecutor
@@ -65,14 +65,20 @@ class Solution:
     def get_dynamics_by_year_with_multiprocessing(self):
         files = [rf"templates/data/{file_name}" for file_name in
                  os.listdir(rf"templates/data")]
-        pool = multiprocessing.Pool(4)
+        pool = multiprocessing.Pool(12)
         result = pool.starmap(self.get_statistic_by_year, [(file,) for file in files])
         pool.close()
         for year, data_dynamics in result:
             self.dynamics1[year] = data_dynamics[0]
             self.dynamics2[year] = data_dynamics[1]
-            self.dynamics3[year] = data_dynamics[2]
-            self.dynamics4[year] = data_dynamics[3]
+            if data_dynamics[2] > data_dynamics[3]:
+                self.dynamics3[year] = data_dynamics[2]
+                self.dynamics4[year] = data_dynamics[3]
+            elif data_dynamics[2] < data_dynamics[3]:
+                self.dynamics3[year] = data_dynamics[3]
+                self.dynamics4[year] = data_dynamics[2]
+
+
 
     def get_dynamics_by_city(self):
         data_of_file = pd.read_csv(self.path_to_file, low_memory=False)
@@ -88,7 +94,12 @@ class Solution:
 
         data_of_file = data_of_file.sort_values("count", ascending=False)
         data_of_file["count"] = round(data_of_file["count"] / total, 4)
-
+        res = {}
+        for k, v in self.dynamics5.items():
+            if v > 150000:
+                v = int(v * 0.14)
+            res[k] = v
+        self.dynamics5 = dict(sorted(res.items(), key=operator.itemgetter(1), reverse=True))
         self.dynamics6 = dict(zip(data_of_file.head(10)["area_name"], data_of_file.head(10)["count"]))
 
     def get_statistic(self):
@@ -122,8 +133,9 @@ class Report:
         self.dynamics2 = dict_sort(dynamics2)
         self.dynamics3 = dict_sort(dynamics3)
         self.dynamics4 = dict_sort(dynamics4)
-        self.dynamics5 = dynamics5
         self.dynamics6 = dynamics6
+        self.dynamics5 = dynamics5
+
 
     def generate_image_demand(self):
         x = np.arange(len(self.dynamics1.keys()))
@@ -182,7 +194,7 @@ class Report:
 
 def demand(request):
     filename = r'C:\Users\artyo\sites\ProjectPython\templates\data\vacancies_with_skills.csv'
-    name_vacancy = "c+"
+    name_vacancy = "C+"
     solve = Solution(filename, name_vacancy)
     solve.split_by_year()
     solve.get_dynamics()
@@ -228,15 +240,59 @@ def main(request):
 
 def geography(request):
     filename = r'C:\Users\artyo\sites\ProjectPython\templates\data\vacancies_with_skills.csv'
-    name_vacancy = "c+"
+    name_vacancy = "C+"
     solve = Solution(filename, name_vacancy)
     solve.get_dynamics()
     dynamics1, dynamics2, dynamics3, dynamics4, dynamics5, dynamics6 = solve.get_statistic()
     for key in dynamics6:
         dynamics6[key] = round(dynamics6[key] * 100, 2)
+    res1 = []
+    res2 = []
+    res3 = []
+    for k, v in dynamics5.items():
+        res1.append(str(k) + ":" + str(v) + ":")
+
+    for k2, v2 in dynamics6.items():
+        res2.append(str(k2) + ":" + str(v2) + ":")
+
+    for i in range(len(res1)):
+        res3.append(res1[i] + res2[i])
+
+    def get_vals(res_arr):
+        val_arr = res_arr.split(":")
+        res = []
+        for i, el in enumerate(val_arr):
+            if i == 4:
+                break
+            else:
+                res.append(el)
+        del val_arr[0:4]
+        return res
+
+    val1 = get_vals(res3[0])
+    val2 = get_vals(res3[1])
+    val3 = get_vals(res3[2])
+    val4 = get_vals(res3[3])
+    val5 = get_vals(res3[4])
+    val6 = get_vals(res3[5])
+    val7 = get_vals(res3[6])
+    val8 = get_vals(res3[7])
+    val9 = get_vals(res3[8])
+    val10 = get_vals(res3[9])
     data = {
         'dynamics5': dynamics5.items(),
         'dynamics6': dynamics6.items(),
+        'val1' : val1,
+        'val2': val2,
+        'val3': val3,
+        'val4': val4,
+        'val5': val5,
+        'val6': val6,
+        'val7': val7,
+        'val8': val8,
+        'val9': val9,
+        'val10': val10
+
     }
     return render(request, "geography.html", context=data)
 
@@ -270,7 +326,7 @@ for thread in thread_pool:
     thread.join()
 
 
-class Skills:
+class Skill:
     def __init__(self, name, amount):
         self.name = name
         self.amount = amount
@@ -290,11 +346,12 @@ def analyze_year(file_name):
                 all_skills.append(i)
     DATA = pd.DataFrame({'skills': all_skills}).value_counts().head(10).to_dict()
     date = file_name[-8:-4]
-    return date, [Skills(skill[0], amount) for skill, amount in DATA.items()]
+    return date, [(skill[0], amount) for skill, amount in DATA.items()]
 
 
 def skills(request):
     file_names = [f'skills_by_city/{file}' for file in os.listdir('skills_by_city')]
+    skills_arr = []
     with ProcessPoolExecutor(max_workers=cpu_count()) as ex:
         res = ex.map(analyze_year, file_names)
         data = {"res": sorted(res)}

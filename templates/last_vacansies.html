@@ -2,8 +2,9 @@
 {% load static %}
 <title>Последнии вакансии</title>
 {% block content %}
+    </div>
         {% for vacancy in vacansies %}
-            <div style="margin-left: 50px; margin-top: 100px">
+            <div style="margin-left: 350px; margin-top: 100px">
                 <h2>{{ vacancy.name }}</h2>
                 <br>
                 <p><b>Зарплата:</b> {{ vacancy.salary }}</p>

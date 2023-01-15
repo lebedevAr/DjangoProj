@@ -3,292 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        .nav {
-            width: 320px;
-            min-width: 320px;
+        .sidenav {
             height: 100%;
+            width: 320px;
             position: fixed;
             top: 0;
+            left: 0;
+            background-color: #4881ea;
+            overflow-x: hidden;
             bottom: 0;
             margin: 0;
-            left: -320px;
             padding: 15px 20px;
-            -webkit-transition: left 0.3s;
-            -moz-transition: left 0.3s;
-            transition: left 0.3s;
-            background: lightskyblue;
             z-index: 2000;
         }
-
-
-        .nav-toggle {
-            position: absolute;
-            left: 320px;
-            top: 1em;
-            padding: 0.5em;
-            background: inherit;
-            color: white;
-            cursor: pointer;
-            font-size: 1.2em;
-            line-height: 1;
-            z-index: 2001;
-            -webkit-transition: color .25s ease-in-out;
-            -moz-transition: color .25s ease-in-out;
-            transition: color .25s ease-in-out;
-        }
-
-        .nav-toggle:after {
-            content: '\2630';
-            text-decoration: none;
-        }
-
-        .nav-toggle:hover {
-            color: white;
-        }
-
-
-        [id='nav-toggle'] {
-            position: absolute;
-            display: none;
-        }
-
-
-
-        [id='nav-toggle']:checked ~ .nav > .nav-toggle {
-            left: auto;
-            right: 2px;
-            top: 1em;
-        }
-
-
-
-        [id='nav-toggle']:checked ~ .nav {
-            left: 0;
-            box-shadow:4px 0px 20px 0px rgba(0,0,0, 0.5);
-            -moz-box-shadow:4px 0px 20px 0px rgba(0,0,0, 0.5);
-            -webkit-box-shadow:4px 0px 20px 0px rgba(0,0,0, 0.5);
-            overflow-y: auto;
-        }
-
-
-
-        [id='nav-toggle']:checked ~ main > article {
-            -webkit-transform: translateX(320px);
-            -moz-transform: translateX(320px);
-            transform: translateX(320px);
-        }
-
-
-        [id='nav-toggle']:checked ~ .nav > .nav-toggle:after {
-            content: '\2715';
-        }
-
-        body {
-            -webkit-animation: bugfix infinite 1s;
-        }
-
-        @-webkit-keyframes bugfix {
-            to {
-              padding: 0;
-            }
-        }
-
-        @media screen and (min-width: 320px) {
-            html,
-            body {
-              margin: 0;
-              overflow-x: hidden;
-            }
-        }
-
-        @media screen and (max-width: 320px) {
-            html,
-            body {
-              margin: 0;
-              overflow-x: hidden;
-            }
-            .nav {
-              width: 100%;
-              box-shadow: none
-            }
-        }
-
-
-        .nav h2 {
-            width: 90%;
-            padding: 0;
+        .sidenav h2 {
             margin: 10px 0;
-            text-align: center;
-            text-shadow: rgba(255, 255, 255, .1) -1px -1px 1px, rgba(0, 0, 0, .5) 1px 1px 1px;
+            text-shadow: rgba(80, 80, 80, 0.1) -1px -1px 1px, rgba(131, 131, 131, 0.5) 1px 1px 1px;
             font-size: 1.3em;
             line-height: 1.3em;
-            opacity: 0;
-            transform: scale(0.1, 0.1);
-            -ms-transform: scale(0.1, 0.1);
-            -moz-transform: scale(0.1, 0.1);
-            -webkit-transform: scale(0.1, 0.1);
-            transform-origin: 0% 0%;
-            -ms-transform-origin: 0% 0%;
-            -moz-transform-origin: 0% 0%;
-            -webkit-transform-origin: 0% 0%;
-            transition: opacity 0.8s, transform 0.8s;
-            -ms-transition: opacity 0.8s, -ms-transform 0.8s;
-            -moz-transition: opacity 0.8s, -moz-transform 0.8s;
-            -webkit-transition: opacity 0.8s, -webkit-transform 0.8s;
         }
 
-        .nav h2 a {
-            color: white;
+        .sidenav ul li{
+            list-style-type: none;
+            margin-left: -40px;
+        }
+        .sidenav a {
+            padding: 6px 8px 6px 16px;
             text-decoration: none;
-            text-transform: uppercase;
-        }
-
-        [id='nav-toggle']:checked ~ .nav h2 {
-            opacity: 1;
-            transform: scale(1, 1);
-            -ms-transform: scale(1, 1);
-            -moz-transform: scale(1, 1);
-            -webkit-transform: scale(1, 1);
-        }
-
-
-        .nav > ul {
+            font-size: 25px;
+            color: #ffffff;
             display: block;
-            margin: 0;
-            padding: 0;
-            list-style: none;
         }
 
-        .nav > ul > li {
-            line-height: 2.5;
-            opacity: 0;
-            -webkit-transform: translateX(-50%);
-            -moz-transform: translateX(-50%);
-            -ms-transform: translateX(-50%);
-            transform: translateX(-50%);
-            -webkit-transition: opacity .5s .1s, -webkit-transform .5s .1s;
-            -moz-transition: opacity .5s .1s, -moz-transform .5s .1s;
-            -ms-transition: opacity .5s .1s, -ms-transform .5s .1s;
-            transition: opacity .5s .1s, transform .5s .1s;
+        .sidenav a:hover {
+            color: #f1f1f1;
         }
 
-        [id='nav-toggle']:checked ~ .nav > ul > li {
-            opacity: 1;
-            -webkit-transform: translateX(0);
-            -moz-transform: translateX(0);
-            -ms-transform: translateX(0);
-            transform: translateX(0);
+        @media screen and (max-height: 450px) {
+            .sidenav {padding-top: 15px;}
+            .sidenav a {font-size: 18px;}
         }
-
-        .nav > ul > li:nth-child(2) {
-            -webkit-transition: opacity .5s .2s, -webkit-transform .5s .2s;
-            transition: opacity .5s .2s, transform .5s .2s;
-        }
-
-        .nav > ul > li:nth-child(3) {
-            -webkit-transition: opacity .5s .3s, -webkit-transform .5s .3s;
-            transition: opacity .5s .3s, transform .5s .3s;
-        }
-
-        .nav > ul > li:nth-child(4) {
-            -webkit-transition: opacity .5s .4s, -webkit-transform .5s .4s;
-            transition: opacity .5s .4s, transform .5s .4s;
-        }
-        .nav > ul > li:nth-child(5) {
-            -webkit-transition: opacity .5s .5s, -webkit-transform .5s .5s;
-            transition: opacity .5s .5s, transform .5s .5s;
-        }
-
-        .nav > ul > li:nth-child(6) {
-            -webkit-transition: opacity .5s .6s, -webkit-transform .5s .6s;
-            transition: opacity .5s .6s, transform .5s .6s;
-        }
-
-        .nav > ul > li:nth-child(7) {
-            -webkit-transition: opacity .5s .7s, -webkit-transform .5s .7s;
-            transition: opacity .5s .7s, transform .5s .7s;
-        }
-
-        .nav > ul > li > a {
-            display: inline-block;
-            position: relative;
-            padding: 0;
-            font-family: 'Open Sans', sans-serif;
-            color: white;
+        .sidenav h2 a {
+            color: #dadada;
             text-decoration: none;
-            text-transform: uppercase;
-            font-weight: 300;
-            font-size: 1.2em;
-            width: 100%;
-            -webkit-transition: color .5s ease, padding .5s ease;
-            -moz-transition: color .5s ease, padding .5s ease;
-            transition: color .5s ease, padding .5s ease;
         }
 
-        .nav > ul > li > a:hover,
-        .nav > ul > li > a:focus {
-            color: white;
-            padding-left: 15px;
-        }
-
-        .nav > ul > li > a:before {
-            content: '';
-            display: block;
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            height: 1px;
-            width: 100%;
-            -webkit-transition: width 0s ease;
-            transition: width 0s ease;
-        }
-
-        .nav > ul > li > a:after {
-            content: '';
-            display: block;
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            height: 1px;
-            width: 100%;
-            background: lightskyblue;
-            -webkit-transition: width .5s ease;
-            transition: width .5s ease;
-        }
-
-        .nav > ul > li > a:hover:before {
-            width: 0%;
-            background: lightskyblue;
-            -webkit-transition: width .5s ease;
-            transition: width .5s ease;
-        }
-
-        .nav > ul > li > a:hover:after {
-            width: 0%;
-            background: transparent;
-            -webkit-transition: width 0s ease;
-            transition: width 0s ease;
-        }
-
-        .mask-content {
-            display: block;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.4);
-            visibility: hidden;
-            opacity: 0;
-        }
-
-        [id='nav-toggle']:checked ~ .mask-content {
-            visibility: visible;
-            opacity: 1;
-            -webkit-transition: opacity .5s, visibility .5s;
-            transition: opacity .5s, visibility .5s;
-        }
         header{
             margin-left: 50px;
         }
@@ -302,7 +61,7 @@
             font-size: 14px;
         }
         .container {
-            max-width: 960px;
+            max-width: 800px;
             margin: 50px auto;
             padding: 0 15px;
             background: white;
@@ -361,7 +120,7 @@
 
             .post-header {
                 padding-left: 26px;
-                border-left: 4px solid #D8D8D8;
+                border-left: 4px solid lightskyblue;
                 margin-left: -30px;
             }
         }
@@ -384,6 +143,7 @@
         }
         .head{
             background-color: lightskyblue;
+            margin-top: -100px;
             width: 2100px;
             height: 58px;
             margin-left: -100px;
@@ -413,11 +173,9 @@
 </head>
 <header class="head">C++ Программист - Аналитика</header>
 <body>
-    <input type="checkbox" id="nav-toggle" hidden>
-    <nav class="nav">
-        <label for="nav-toggle" class="nav-toggle" onclick></label>
+    <nav class="sidenav">
         <h2 class="logo">
-            <a href="//dbmast.ru/">C++ программист</a>
+            C++ программист
         </h2>
         <ul class="hidden-menu">
             <li><a href="/">Главная</a></li>
@@ -428,7 +186,6 @@
         </ul>
 
     </nav>
-    <div class="mask-content"></div>
     {% block content%}
     <header>
 
@@ -456,23 +213,24 @@
                         <li>Разработка игр.</li>
                         <li>Разработка десктопных и кросс-платформенных приложений.</li>
                         </ul>
-                    <h2>Кратчайшая история создания C++</h2>
+                    <h2>Инструменты разработчика C++</h2>
                         <p class="p_back">
-                            Первые версии языка C++ (си-плюс-плюс, еще его называют «плюсы») появились в начале 1980-х
-                            годов. Их создатель — датский программист из компании Bell Laboratories Бьерн Страуструп.
-                            Он моделировал распределения вызовов по АТС (автоматическим телефонным станциям). Тогда у
-                            Страуструпа было два типа языков: низкоуровневые и языки на основе Фортрана или Алгола,
-                            которые были очень медленными.
+                            Инструментов, которыми пользуется C++-разработчик, очень много: для Windows основной — это Microsoft
+                    Visual Studio, для macOS — Xcode IDE. Большой выбор инструментов для разработки на C++ есть в Linux.
+                    Например, Qt Creator, который стал очень популярным в последние годы. Вообще инструментов десятки,
+                    и выбирать можно любой для своего удобства.
                         </p>
                         <div class="post-image">
                             <img src="https://litres.ru/static/authors/100/03/19/16/03191617.jpg" style="height: 150px; width: 150px;">
                         </div>
-                <h3>Инструменты разработчика C++</h3>
+                <h2>Кратчайшая история создания C++</h2>
                 <p class="p_back">
-                    Инструментов, которыми пользуется C++-разработчик, очень много: для Windows основной — это Microsoft
-                    Visual Studio, для macOS — Xcode IDE. Большой выбор инструментов для разработки на C++ есть в Linux.
-                    Например, Qt Creator, который стал очень популярным в последние годы. Вообще инструментов десятки,
-                    и выбирать можно любой для своего удобства.
+
+                    Первые версии языка C++ (си-плюс-плюс, еще его называют «плюсы») появились в начале 1980-х
+                            годов. Их создатель — датский программист из компании Bell Laboratories Бьерн Страуструп.
+                            Он моделировал распределения вызовов по АТС (автоматическим телефонным станциям). Тогда у
+                            Страуструпа было всего два типа языков: низкоуровневые и языки на основе Фортрана или Алгола,
+                            которые были очень медленными.
                 </p>
             </div>
         </div>

@@ -1,7 +1,8 @@
 {% extends "main.html" %}
 {% load static %}
 {% block content %}
-    <div style="margin-top: 75px">
+    <div style="margin-top: 100px; margin-left: 320px; margin-bottom: 500px">
+    <h2>Статистика по наиболее требуемым навыкам по профессии С++ Программист:</h2>
     {% for r in res %}
         <ul>
             <li><p>Ключевые навыки {{ r.0 }} года: {{ r.1 }}</p>
